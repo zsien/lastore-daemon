@@ -5,7 +5,7 @@ After=display-manager.service
 [Service]
 Type=dbus
 BusName=org.deepin.dde.Lastore1
-ExecStart=/usr/libexec/lastore-daemon/lastore-daemon
+ExecStart=/usr/libexec/deepin/update-manager-daemon
 StandardOutput=null
 StandardError=null
 StateDirectory=lastore

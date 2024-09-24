@@ -32,7 +32,7 @@ var (
 	binDpkgDeb   string
 	binAptCache  string
 
-	logger = log.NewLogger("cmd/lastore-apt-clean")
+	logger = log.NewLogger("cmd/update-manager-apt-clean")
 )
 
 func mustGetBin(name string) string {

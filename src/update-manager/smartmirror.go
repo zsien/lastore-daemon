@@ -121,7 +121,7 @@ func SubmainMirrorSynProgress(c *cli.Context) error {
 	return err
 }
 
-//  appendSuffix 如果 r 没有后缀 suffix，则加上。
+// appendSuffix 如果 r 没有后缀 suffix，则加上。
 func appendSuffix(r string, suffix string) string {
 	if strings.HasSuffix(r, suffix) {
 		return r

@@ -1,7 +1,7 @@
 /etc
 /usr/bin
 /usr/share
-/usr/libexec/lastore-daemon
+/usr/libexec/deepin
 /var/lib/lastore
 /var/cache/lastore
 lib/systemd

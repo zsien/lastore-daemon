@@ -1,4 +1,4 @@
-Source: lastore-daemon
+Source: deepin-update-manager
 Section: admin
 Priority: optional
 Maintainer: Deepin Sysdev <sysdev@deepin.com>
@@ -24,7 +24,7 @@ Build-Depends:
 Standards-Version: 4.1.3
 Homepage: http://github.com/linuxdeepin/lastore-daemon
 
-Package: lastore-daemon
+Package: deepin-update-manager
 Architecture: any
 Provides:
  update-notifier,
@@ -41,11 +41,11 @@ Recommends:
 Description: daemon of lastore
  daemon of lastore - support dbus interface
 
-Package: lastore-daemon-dev
+Package: deepin-update-manager-dev
 Architecture: all
 Depends:
- lastore-daemon  (>= ${source:Version}),
- lastore-daemon (<< ${source:Version}.1~),
+ deepin-update-manager  (>= ${source:Version}),
+ deepin-update-manager (<< ${source:Version}.1~),
  ${misc:Depends},
 Description: daemon of lastore - development files.
  daemon of lastore - support dbus interface - development files.

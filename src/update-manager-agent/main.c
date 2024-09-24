@@ -7,7 +7,7 @@
 #include <syslog.h>
 #include <systemd/sd-bus.h>
 
-#define PROG_NAME "lastore-agent"
+#define PROG_NAME "update-manager-agent"
 
 int main(int argc, char *argv[]) {
   // 初始化日志系统，指定程序名称和选项

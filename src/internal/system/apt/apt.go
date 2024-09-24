@@ -83,7 +83,7 @@ func createCommandLine(cmdType string, cmdArgs []string) *exec.Cmd {
 		sh := fmt.Sprintf("apt-get %s -o APT::Status-Fd=3 update --fix-missing && /var/lib/lastore/scripts/build_system_info -now", argString)
 		return exec.Command("/bin/sh", "-c", sh)
 	case system.CleanJobType:
-		return exec.Command("/usr/bin/lastore-apt-clean")
+		return exec.Command("/usr/bin/update-manager-apt-clean")
 
 	case system.FixErrorJobType:
 		var errType system.JobErrorType

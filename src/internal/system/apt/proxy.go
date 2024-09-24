@@ -9,7 +9,6 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
-	"github.com/linuxdeepin/lastore-daemon/src/internal/system"
 	"io"
 	"os"
 	"os/exec"
@@ -17,6 +16,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/linuxdeepin/lastore-daemon/src/internal/system"
 )
 
 type APTSystem struct {

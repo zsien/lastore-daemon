@@ -8,7 +8,7 @@ After=dbus.socket
 Type=dbus
 BusName=org.deepin.dde.Lastore1.Smartmirror
 User=deepin-daemon
-ExecStart=/usr/libexec/lastore-daemon/lastore-smartmirror-daemon
+ExecStart=/usr/libexec/deepin/update-manager-smartmirror-daemon
 StandardOutput=null
 StandardError=journal
 

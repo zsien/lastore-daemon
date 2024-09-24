@@ -20,31 +20,31 @@ TEST = \
 	${GOPKG_PREFIX}/src/internal/system/apt \
 	${GOPKG_PREFIX}/src/internal/utils \
 	${GOPKG_PREFIX}/src/internal/querydesktop \
-	${GOPKG_PREFIX}/src/lastore-daemon \
-	${GOPKG_PREFIX}/src/lastore-smartmirror \
-	${GOPKG_PREFIX}/src/lastore-tools \
-	${GOPKG_PREFIX}/src/lastore-smartmirror-daemon
+	${GOPKG_PREFIX}/src/update-manager-daemon \
+	${GOPKG_PREFIX}/src/update-manager-smartmirror \
+	${GOPKG_PREFIX}/src/update-manager \
+	${GOPKG_PREFIX}/src/update-manager-smartmirror-daemon
 
 prepare:
 	@mkdir -p out/bin
 	@mkdir -p ${GOPATH_DIR}/src/$(dir ${GOPKG_PREFIX});
 	@ln -snf ../../../.. ${GOPATH_DIR}/src/${GOPKG_PREFIX};
 
-bin/lastore-agent:src/lastore-agent/*.c
+bin/update-manager-agent:src/update-manager-agent/*.c
 	@mkdir -p bin
 	gcc ${SECURITY_BUILD_OPTIONS} -W -Wall -D_GNU_SOURCE -o $@ $^ $(shell pkg-config --cflags --libs glib-2.0 libsystemd)
 
-build: prepare bin/lastore-agent
-	${GoPath} ${GOBUILD} -o bin/lastore-daemon ${GOBUILD_OPTIONS} ${GOPKG_PREFIX}/src/lastore-daemon
-	${GoPath} ${GOBUILD} -o bin/lastore-tools ${GOBUILD_OPTIONS} ${GOPKG_PREFIX}/src/lastore-tools
-	${GoPath} ${GOBUILD} -o bin/lastore-smartmirror ${GOBUILD_OPTIONS} ${GOPKG_PREFIX}/src/lastore-smartmirror || echo "build failed, disable smartmirror support "
-	${GoPath} ${GOBUILD} -o bin/lastore-smartmirror-daemon ${GOBUILD_OPTIONS} ${GOPKG_PREFIX}/src/lastore-smartmirror-daemon || echo "build failed, disable smartmirror support "
-	${GoPath} ${GOBUILD} -o bin/lastore-apt-clean ${GOBUILD_OPTIONS} ${GOPKG_PREFIX}/src/lastore-apt-clean
+build: prepare bin/update-manager-agent
+	${GoPath} ${GOBUILD} -o bin/update-manager-daemon ${GOBUILD_OPTIONS} ${GOPKG_PREFIX}/src/update-manager-daemon
+	${GoPath} ${GOBUILD} -o bin/update-manager ${GOBUILD_OPTIONS} ${GOPKG_PREFIX}/src/update-manager
+	${GoPath} ${GOBUILD} -o bin/update-manager-smartmirror ${GOBUILD_OPTIONS} ${GOPKG_PREFIX}/src/update-manager-smartmirror || echo "build failed, disable smartmirror support "
+	${GoPath} ${GOBUILD} -o bin/update-manager-smartmirror-daemon ${GOBUILD_OPTIONS} ${GOPKG_PREFIX}/src/update-manager-smartmirror-daemon || echo "build failed, disable smartmirror support "
+	${GoPath} ${GOBUILD} -o bin/update-manager-apt-clean ${GOBUILD_OPTIONS} ${GOPKG_PREFIX}/src/update-manager-apt-clean
 
 fetch-base-metadata:
-	./bin/lastore-tools update -r desktop -j applications -o var/lib/lastore/applications.json
-	./bin/lastore-tools update -r desktop -j categories -o var/lib/lastore/categories.json
-	./bin/lastore-tools update -r desktop -j mirrors -o var/lib/lastore/mirrors.json
+	./bin/update-manager update -r desktop -j applications -o var/lib/lastore/applications.json
+	./bin/update-manager update -r desktop -j categories -o var/lib/lastore/categories.json
+	./bin/update-manager update -r desktop -j mirrors -o var/lib/lastore/mirrors.json
 
 
 test:
@@ -64,12 +64,14 @@ print_gopath:
 	GOPATH="${pwd}:${pwd}/vendor:${GOPATH}"
 
 install: gen_mo
-	mkdir -p ${DESTDIR}${PREFIX}/usr/bin && cp bin/lastore-apt-clean ${DESTDIR}${PREFIX}/usr/bin/
-	cp bin/lastore-tools ${DESTDIR}${PREFIX}/usr/bin/
-	cp bin/lastore-smartmirror ${DESTDIR}${PREFIX}/usr/bin/
-	cp bin/lastore-agent ${DESTDIR}${PREFIX}/usr/bin/
-	mkdir -p ${DESTDIR}${PREFIX}/usr/libexec/lastore-daemon && cp bin/lastore-daemon ${DESTDIR}${PREFIX}/usr/libexec/lastore-daemon
-	cp bin/lastore-smartmirror-daemon ${DESTDIR}${PREFIX}/usr/libexec/lastore-daemon
+	mkdir -p ${DESTDIR}${PREFIX}/usr/bin
+	cp bin/update-manager-apt-clean ${DESTDIR}${PREFIX}/usr/bin/
+	cp bin/update-manager ${DESTDIR}${PREFIX}/usr/bin/
+	cp bin/update-manager-smartmirror ${DESTDIR}${PREFIX}/usr/bin/
+	cp bin/update-manager-agent ${DESTDIR}${PREFIX}/usr/bin/
+	mkdir -p ${DESTDIR}${PREFIX}/usr/libexec/deepin
+	cp bin/update-manager-daemon ${DESTDIR}${PREFIX}/usr/libexec/deepin
+	cp bin/update-manager-smartmirror-daemon ${DESTDIR}${PREFIX}/usr/libexec/deepin
 
 	mkdir -p ${DESTDIR}${PREFIX}/usr && cp -rf usr ${DESTDIR}${PREFIX}/
 	cp -rf etc ${DESTDIR}${PREFIX}/
